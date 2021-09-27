@@ -1,0 +1,565 @@
+//UserAuthentication
+{
+    "title": "UserAuthentication",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "userId": {
+            "type": "string"
+        },
+        "userType": {
+            "type": "string",
+            "enum": ["Customer", "Provider"]
+        },
+        "email": {
+            "type": "string"
+        },
+        "password": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "userId",
+        "userType",
+        "email",
+        "password"
+    ]
+}
+
+//Session 
+{
+    "title": "Session",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "token": {
+            "type": "string",
+            "unique": true
+        },
+        "userId": {
+            "type": "string",
+            "unique": true
+        },
+        "lastInteraction": {
+            "type": "date"
+        }
+    },
+    "required": [
+        "token",
+        "userId",
+        "lastInteraction"
+    ]
+}
+
+//Customer
+{
+    "title": "Customer",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "birthdate": {
+            "type": "date"
+        },
+        "photoUrl": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "userType": {
+            "type": "string",
+            "value": "Customer"
+        }
+    },
+    "required": [
+        "_id",
+        "email",
+        "name",
+        "birthdate",
+        "photoUrl",
+        "description",
+        "userType"
+    ]
+}
+
+//Provider
+{
+    "title": "Provider",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "birthdate": {
+            "type": "date"
+        },
+        "photoUrl": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "userType": {
+            "type": "string",
+            "value": "Provider"
+        },
+        "phoneNumber": {
+            "type": "string"
+        },
+        "webUrl": {
+            "type": "string"
+        },
+        "socialNetworkLinks": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "_id",
+        "email",
+        "name",
+        "birthdate",
+        "photoUrl",
+        "description",
+        "userType",
+        "phoneNumber",
+        "webUrl",
+        "socialNetworkLinks"
+    ]
+}
+
+//CountryInformation 
+{
+    "title": "CountryInformation",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+        "currency": {
+            "type": "string"
+        },
+        "language": {
+            "type": "string"
+        },
+        "population": {
+            "type": "number"
+        },
+        "region": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "currency",
+        "language",
+        "population",
+        "region"
+    ]
+}
+
+//Location 
+{
+    "title": "Location",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "country": {
+            "type": "string"
+        },
+        "city": {
+            "type": "string"
+        },
+        "exactPlace": {
+            "type": "string"
+        },
+        "countryInformation": {
+            "type": "object",
+            "$ref": "/schema/CountryInformation"
+        }
+    },
+    "required": [
+        "country",
+        "city",
+        "exactPlace",
+        "countryInformation"
+    ]
+}
+
+//Service
+{
+    "title": "Service",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "serviceType": {
+            "type": "string",
+            "enum": ["Transporte", "Alojamiento", "Alimentacion", "Excursion Ecologica"]
+        },
+        "cost": {
+            "type": "number",
+            "min": 0
+        },
+        "providerId": {
+            "type": "string"
+        },
+        "providerName": {
+            "type": "string"
+        },
+        "quantityAvailable": {
+            "type": "number",
+            "min": 0
+        },
+        "description": {
+            "type": "string"
+        },
+        "location": {
+            "type": "object",
+            "$ref": "/schema/Location"
+        },
+        "searchString": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "_id",
+        "serviceType",
+        "cost",
+        "providerId",
+        "providerName",
+        "quantityAvailable",
+        "description",
+        "location"
+    ]
+}
+
+//LodgingService
+{
+    "title": "LodgingService",
+    "type": "object",
+    "additionalProperties": false,
+    "allOf": [
+        { "$ref": "/schema/Service" }
+    ],
+    "properties": {
+        "lodgingType": {
+            "type": "string"
+        },
+        "extras": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
+        },
+        "serviceType": {
+            "type": "string",
+            "value": "Alojamiento"
+        }
+    },
+    "required": [
+        "lodgingType",
+        "extras",
+        "serviceType"
+    ]
+}
+
+//FoodService
+{
+    "title": "FoodService",
+    "type": "object",
+    "additionalProperties": false,
+    "allOf": [
+        { "$ref": "/schema/Service" }
+    ],
+    "properties": {
+        "foodType": {
+            "type": "string"
+        },
+        "ingredients": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
+        },
+        "prepTime": {
+            "type": "number"
+        },
+        "serviceType": {
+            "type": "string",
+            "value": "Alimentacion"
+        }
+    },
+    "required": [
+        "foodType",
+        "ingredients",
+        "prepTime",
+        "serviceType"
+    ]
+}
+
+//EcologicalExcursionService
+{
+    "title": "EcologicalExcursionService",
+    "type": "object",
+    "additionalProperties": false,
+    "allOf": [
+        { "$ref": "/schema/Service" }
+    ],
+    "properties": {
+        "excursionType": {
+            "type": "string"
+        },
+        "durationInHours": {
+            "type": "number"
+        },
+        "ecosystem": {
+            "type": "string"
+        },
+        "weather": {
+            "type": "string"
+        },
+        "serviceType": {
+            "type": "string",
+            "value": "Excursion Ecologica"
+        }
+    },
+    "required": [
+        "excursionType",
+        "durationInHours",
+        "ecosystem",
+        "weather",
+        "serviceType"
+    ]
+}
+
+//TransportService
+{
+    "title": "TransportService",
+    "type": "object",
+    "additionalProperties": false,
+    "allOf": [
+        { "$ref": "/schema/Service" }
+    ],
+    "properties": {
+        "route": {
+            "type": "string"
+        },
+        "transportType": {
+            "type": "string"
+        },
+        "departureTime": {
+            "type": "date"
+        },
+        "arrivalTime": {
+            "type": "date"
+        },
+        "destiny": {
+            "type": "object",
+            "$ref": "/schema/Location"
+        },
+        "serviceType": {
+            "type": "string",
+            "value": "Excursion Ecologica"
+        }
+    },
+    "required": [
+        "durationInHours",
+        "excursionType",
+        "ecosystem",
+        "weather",
+        "serviceType"
+    ]
+}
+
+//PaymentInformation
+{
+    "title": "PaymentInformation",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "creditCardNumber": {
+            "type": "string"
+        },
+        "expirationYear": {
+            "type": "number"
+        },
+        "ownerName": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "creditCardNumber",
+        "expirationYear",
+        "ownerName"
+    ]
+}
+
+//Purchase
+{
+    "title": "Purchase",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "cartId": {
+            "type": "string"
+        },
+        "userId": {
+            "type": "string"
+        },
+        "paymentInformation": {
+            "type": "object",
+            "$ref": "/schema/PaymentInformation"
+        },
+    },
+    "required": [
+        "_id",
+        "cartId",
+        "userId",
+        "paymentInformation"
+    ]
+}
+
+//CartItem
+{
+    "title": "CartItem",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "serviceId": {
+            "type": "string"
+        },
+        "quantity": {
+            "type": "number",
+            "min": 0
+        }
+    },
+    "required": [
+        "serviceId",
+        "quantity"
+    ]
+}
+
+//ShoppingCart
+{
+    "title": "ShoppingCart",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "customerId": {
+            "type": "string"
+        },
+        "items": {
+            "type": "array",
+            "uniqueItems": "true",
+            "items": {
+                "type": "object",
+                "$ref": "/schema/CartItem"
+            }
+        },
+        "lastModification": {
+            "type": "date"
+        }
+    },
+    "required": [
+        "_id",
+        "customerId",
+        "items",
+        "lastModification"
+    ]
+}
+
+//Review
+{
+    "title": "Review",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "rating": {
+            "type": "number",
+            "min": 0.0,
+            "max": 5.0
+        },
+        "serviceId": {
+            "type": "string"
+        },
+        "customerId": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string"
+        },
+        "publicationTime": {
+            "type": "date"
+        }
+    },
+    "required": [
+        "_id",
+        "rating",
+        "serviceId",
+        "customerId",
+        "comment",
+        "publicationTime",
+    ]
+}
+
+//Question
+{
+    "title": "Question",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "customerId": {
+            "type": "string"
+        },
+        "question": {
+            "type": "string"
+        },
+        "answer": {
+            "type": "string"
+        },
+        "publicationTime": {
+            "type": "date"
+        }
+    },
+    "required": [
+        "_id",
+        "customerId",
+        "question",
+        "customerId",
+        "answer",
+        "publicationTime",
+    ]
+}

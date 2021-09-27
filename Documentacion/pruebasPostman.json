@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "2a1c5972-d499-4376-858f-9800221a0671",
+		"name": "Proyecto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ShoppingCart",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": \"1234567890\",\r\n    \"items\": [{\r\n        \"serviceId\": \"1234\",\r\n        \"quantity\": 2\r\n    },\r\n    {\r\n        \"serviceId\": \"1234\",\r\n        \"quantity\": 2\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:15000/marketplace/shoppingcart/",
+							"host": [
+								"localhost"
+							],
+							"port": "15000",
+							"path": [
+								"marketplace",
+								"shoppingcart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNjMyNzQyMDg0LCJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNjMyNzI0MDg0fQ.y38wSBuLlhBqLUJ7JEF0bIi6vRN59smVq0YPe0xDRPPeYKdBtX_KUB6lS-lg9s1wK3p8tuDmX36EU4cFCTjvjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"_id\": \"61517a435630831d0fb0cde4\",\r\n    \"customerId\": \"1234567890\",\r\n    \"items\": [\r\n        {\r\n            \"serviceId\": \"1234\",\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"serviceId\": \"1236\",\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"serviceId\": \"1235\",\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"lastModification\": \"2021-09-27T03:01:07.9483005\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:15000/marketplace/shoppingcart/",
+							"host": [
+								"localhost"
+							],
+							"port": "15000",
+							"path": [
+								"marketplace",
+								"shoppingcart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNjMyNzQyMDg0LCJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNjMyNzI0MDg0fQ.y38wSBuLlhBqLUJ7JEF0bIi6vRN59smVq0YPe0xDRPPeYKdBtX_KUB6lS-lg9s1wK3p8tuDmX36EU4cFCTjvjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:15000/marketplace/shoppingcart/61517a435630831d0fb0cde4",
+							"host": [
+								"localhost"
+							],
+							"port": "15000",
+							"path": [
+								"marketplace",
+								"shoppingcart",
+								"61517a435630831d0fb0cde4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNjMyNzQyMDg0LCJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNjMyNzI0MDg0fQ.y38wSBuLlhBqLUJ7JEF0bIi6vRN59smVq0YPe0xDRPPeYKdBtX_KUB6lS-lg9s1wK3p8tuDmX36EU4cFCTjvjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:15000/marketplace/shoppingcart/61517a435630831d0fb0cde4",
+							"host": [
+								"localhost"
+							],
+							"port": "15000",
+							"path": [
+								"marketplace",
+								"shoppingcart",
+								"61517a435630831d0fb0cde4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Session Manager",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"johngonzalez@javeriana.edu.co\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:16000/marketplace/authentication/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "16000",
+									"path": [
+										"marketplace",
+										"authentication",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:16000/marketplace/authentication/logout",
+									"host": [
+										"localhost"
+									],
+									"port": "16000",
+									"path": [
+										"marketplace",
+										"authentication",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check Active Session",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:16000/marketplace/authentication/session/userId/Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c3VhcmlvSWQ6eGQiLCJleHAiOjE2MzI3MzA1MjAsInVzZXJJZCI6InVzdWFyaW9JZDp4ZCIsImlhdCI6MTYzMjcxMjUyMH0.blS_5FNQt9rTty-sB1FqFMj4N2mVVLJNpWGBrXQwQksIEwVMXBY8Pq8y2jTzuZoCe0t4X-FFL6CWsX4743PAaw",
+									"host": [
+										"localhost"
+									],
+									"port": "16000",
+									"path": [
+										"marketplace",
+										"authentication",
+										"session",
+										"userId",
+										"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c3VhcmlvSWQ6eGQiLCJleHAiOjE2MzI3MzA1MjAsInVzZXJJZCI6InVzdWFyaW9JZDp4ZCIsImlhdCI6MTYzMjcxMjUyMH0.blS_5FNQt9rTty-sB1FqFMj4N2mVVLJNpWGBrXQwQksIEwVMXBY8Pq8y2jTzuZoCe0t4X-FFL6CWsX4743PAaw"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johngonzalez@javeriana.edu.co\",\r\n    \"userType\": \"Provider\",\r\n    \"password\": \"12345678\",\r\n    \"userId\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:16000/marketplace/authentication/",
+							"host": [
+								"localhost"
+							],
+							"port": "16000",
+							"path": [
+								"marketplace",
+								"authentication",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNjMyNzQyMDg0LCJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNjMyNzI0MDg0fQ.y38wSBuLlhBqLUJ7JEF0bIi6vRN59smVq0YPe0xDRPPeYKdBtX_KUB6lS-lg9s1wK3p8tuDmX36EU4cFCTjvjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johngonzalez@javeriana.edu.co\",\r\n    \"userType\": \"Provider\",\r\n    \"password\": \"12345678\",\r\n    \"userId\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:16000/marketplace/authentication/",
+							"host": [
+								"localhost"
+							],
+							"port": "16000",
+							"path": [
+								"marketplace",
+								"authentication",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:16000/marketplace/authentication/61517a435630831d0fb0cde4",
+							"host": [
+								"localhost"
+							],
+							"port": "16000",
+							"path": [
+								"marketplace",
+								"authentication",
+								"61517a435630831d0fb0cde4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
