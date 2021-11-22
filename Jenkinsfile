@@ -3,35 +3,38 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                dir('eureka') {
+                dir('src/eureka') {
                     sh './mvnw clean install'
                 }
-                dir('Authentication') {
+                dir('src/Authentication') {
                     sh './mvnw clean install'
                 }
-                dir('Feedback') {
+                dir('src/Feedback') {
                     sh './mvnw clean install'
                 }
-                dir('Marketplace') {
+                dir('src/Marketplace') {
                     sh './mvnw clean install'
                 }
-                dir('Services') {
+                dir('src/Services') {
                     sh './mvnw clean install'
                 }
-                dir('Shopping') {
+                dir('src/Shopping') {
                     sh './mvnw clean install'
                 }
-                dir('ShoppingCart') {
+                dir('src/ShoppingCart') {
                     sh './mvnw clean install'
                 }
-                dir('Users') {
+                dir('src/Users') {
                     sh './mvnw clean install'
                 }
             }
         }
         stage('deploy') {
             steps {
-                sh 'docker-compose up --build'
+                dir('src'){
+                    sh 'docker-compose up --build'
+                }
+                
             }
         }
     }
