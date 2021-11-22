@@ -4,28 +4,28 @@ pipeline {
         stage('build') {
             steps {
                 dir('eureka') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('Authentication') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('Feedback') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('Marketplace') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('Services') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('Shopping') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('ShoppingCart') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
                 dir('Users') {
-                    sh './mvn clean install'
+                    sh './mvnw clean install'
                 }
             }
         }
