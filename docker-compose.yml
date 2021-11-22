@@ -1,19 +1,54 @@
 services:
-    jenkins:
-        build: ./jenkins
-        image: jenkins
-        container_name: jenkins
-        restart: always
-        volumes:
-            - jenkins-data:/var/jenkins_home
+    dbserver:
+        image: mongo
+        container_name: dbserver
         ports:
-            - 18000:8080
+            - 27000:27017
         networks:
             - marketplace-net
-
+        volumes:
+            - mongodb-data:/data/db
+    eureka:
+        build: ./eurekaserver
+        container_name: eureka
+        ports:
+            - 18761:8761
+        networks:
+            - marketplace-net
+    marketplace:
+        build: ./Marketplace
+        container_name: marketplace
+        ports:
+            - 11000:11000
+        networks:
+            - marketplace-net
+    authentication:
+        build: ./Authentication
+        networks:
+            - marketplace-net
+    feedback:
+        build: ./Feedback
+        networks:
+            - marketplace-net
+    mp-services:
+        build: ./Services
+        networks:
+            - marketplace-net
+    shopping:
+        build: ./Shopping
+        networks:
+            - marketplace-net
+    shoppingcart:
+        build: ./ShoppingCart
+        networks:
+            - marketplace-net
+    users:
+        build: ./Users
+        networks:
+            - marketplace-net
 networks:
     marketplace-net:
         driver: bridge
 
 volumes:
-    jenkins-data:
+    mongodb-data:
