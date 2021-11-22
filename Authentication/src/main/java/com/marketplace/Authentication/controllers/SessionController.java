@@ -4,6 +4,7 @@ import com.marketplace.Authentication.controllers.exceptions.InvalidTokenExcepti
 import com.marketplace.Authentication.controllers.exceptions.NotActiveSessionException;
 import com.marketplace.Authentication.controllers.security.JwtTokenUtil;
 import com.marketplace.Authentication.models.LoginData;
+import com.marketplace.Authentication.models.LoginResponse;
 import com.marketplace.Authentication.models.Session;
 import com.marketplace.Authentication.models.UserAuthentication;
 import com.marketplace.Authentication.repositories.SessionRepository;
@@ -15,21 +16,20 @@ import java.util.Objects;
 @Service
 public class SessionController {
 
-    @Autowired
-    private AuthenticationController authController;
+    private final AuthenticationController authController;
+    private final PasswordController passwordController;
+    private final SessionRepository repository;
+    private final JwtTokenUtil jwtManager;
 
     @Autowired
-    private PasswordController passwordController;
+    public SessionController(AuthenticationController authController, PasswordController passwordController, SessionRepository repository, JwtTokenUtil jwtManager) {
+        this.authController = authController;
+        this.passwordController = passwordController;
+        this.repository = repository;
+        this.jwtManager = jwtManager;
+    }
 
-    @Autowired
-    private SessionRepository repository;
-
-    @Autowired
-    private JwtTokenUtil jwtManager;
-
-    public SessionController(){}
-
-    public String login(LoginData login){
+    public LoginResponse login(LoginData login){
         UserAuthentication authentication = authController.findByEmail(login.getEmail());
         passwordController.assertPasswordsMatch(login.getPassword(), authentication.getPassword());
         String token = jwtManager.generateToken(authentication.getUserId());
@@ -37,7 +37,7 @@ public class SessionController {
         newSession.setToken(token);
         newSession.setUserId( authentication.getUserId() );
         repository.insert(newSession);
-        return token;
+        return new LoginResponse(token, authentication.getUserId());
     }
 
     public void logout(String token){

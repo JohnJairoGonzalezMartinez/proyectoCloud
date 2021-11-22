@@ -8,8 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PasswordController {
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public PasswordController(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public String encryptPassword(String password){
         return passwordEncoder.encode(password);

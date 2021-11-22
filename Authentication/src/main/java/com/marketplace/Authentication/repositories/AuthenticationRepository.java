@@ -5,10 +5,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AuthenticationRepository extends MongoRepository<UserAuthentication, String> {
 
-    List<UserAuthentication> findByUserId(String userId);
+    Optional<UserAuthentication> findByUserId(String userId);
+    Optional<UserAuthentication> findByEmail(String userId);
 
 }

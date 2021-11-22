@@ -33,7 +33,7 @@ public class ShoppingCartRestEndpoint {
 
     @PutMapping
     public ResponseEntity<ShoppingCart> update(@RequestBody ShoppingCart data, @RequestHeader("Authorization") String authorizationToken){
-        authController.assertUserAuthorization(authorizationToken, data.get_id());
+        authController.assertUserAuthorization(authorizationToken, data.getId());
         ShoppingCart searchedCart = controller.update(data);
         return ResponseEntity.status(200).body(searchedCart);
     }

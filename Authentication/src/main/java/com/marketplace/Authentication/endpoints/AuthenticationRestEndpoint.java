@@ -12,21 +12,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/marketplace/authentication")
 public class AuthenticationRestEndpoint {
 
-    @Autowired
-    private AuthenticationController authenticationController;
+    private final AuthenticationController authenticationController;
+    private final SessionController sessionController;
 
     @Autowired
-    private SessionController sessionController;
+    public AuthenticationRestEndpoint(AuthenticationController authenticationController, SessionController sessionController) {
+        this.authenticationController = authenticationController;
+        this.sessionController = sessionController;
+    }
 
     @PostMapping()
-    public ResponseEntity<UserAuthentication> createUserAuthentication(@RequestBody UserAuthentication data){
+    public ResponseEntity<UserAuthentication> create(@RequestBody UserAuthentication data){
         UserAuthentication authentication = authenticationController.create(data);
         authentication.setPassword(null);
         return ResponseEntity.status(200).body(authentication);
     }
 
     @PutMapping()
-    public ResponseEntity<UserAuthentication> updateUserAuthentication(@RequestBody UserAuthentication data, @RequestHeader("Authorization") String headerToken){
+    public ResponseEntity<UserAuthentication> update(@RequestBody UserAuthentication data, @RequestHeader("Authorization") String headerToken){
         String simpleToken = sessionController.getTokenFromHeader(headerToken);
         sessionController.getIdIfUserHasActiveSession(simpleToken);
         UserAuthentication authentication = authenticationController.update(data);
@@ -34,11 +37,11 @@ public class AuthenticationRestEndpoint {
         return ResponseEntity.status(200).body(authentication);
     }
 
-    @DeleteMapping("/{userMail}")
-    public ResponseEntity<String> deleteUserAuthentication(@PathVariable("userMail") String userMail, @RequestHeader("Authorization") String headerToken){
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> delete(@PathVariable("userId") String userId, @RequestHeader("Authorization") String headerToken){
         String simpleToken = sessionController.getTokenFromHeader(headerToken);
-        String userId = sessionController.getIdIfUserHasActiveSession(simpleToken);
-        authenticationController.deleteByUserId(userId);
+        String requesterUserId = sessionController.getIdIfUserHasActiveSession(simpleToken);
+        authenticationController.deleteByUserId(requesterUserId);
         return ResponseEntity.status(200).body("User removed from the authentication service");
     }
 

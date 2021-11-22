@@ -2,6 +2,7 @@ package com.marketplace.Authentication.endpoints;
 
 import com.marketplace.Authentication.controllers.SessionController;
 import com.marketplace.Authentication.models.LoginData;
+import com.marketplace.Authentication.models.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,25 +12,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/marketplace/authentication/")
 public class SessionRestEndpoint {
 
+    private final SessionController sessionController;
+
     @Autowired
-    private SessionController controller;
+    public  SessionRestEndpoint(SessionController sessionController){
+        this.sessionController = sessionController;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginData loginData){
-        String token = this.controller.login(loginData);
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginData loginData){
+        LoginResponse token = this.sessionController.login(loginData);
         return ResponseEntity.status(200).body(token);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String headerToken){
-        this.controller.logout(headerToken);
+        this.sessionController.logout(headerToken);
         return ResponseEntity.status(200).body("Session closed successfully");
     }
 
     @GetMapping("/session/userId/{token}")
     public ResponseEntity<String> getIdFromSessionToken(@PathVariable("token") String token){
-        String simpleToken = this.controller.getTokenFromHeader(token);
-        String userId = this.controller.getIdIfUserHasActiveSession(simpleToken);
+        String simpleToken = this.sessionController.getTokenFromHeader(token);
+        String userId = this.sessionController.getIdIfUserHasActiveSession(simpleToken);
         return ResponseEntity.status(200).body(userId);
     }
 

@@ -1,22 +1,24 @@
 package com.marketplace.Authentication.controllers;
 
+import com.marketplace.Authentication.controllers.exceptions.UserNotFoundException;
 import com.marketplace.Authentication.models.UserAuthentication;
 import com.marketplace.Authentication.repositories.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthenticationController {
 
-    @Autowired
-    private AuthenticationRepository repository;
+    private final AuthenticationRepository repository;
+    private final PasswordController passwordController;
 
     @Autowired
-    private PasswordController passwordController;
-
-    public AuthenticationController(){}
+    public AuthenticationController(AuthenticationRepository repository, PasswordController passwordController) {
+        this.repository = repository;
+        this.passwordController = passwordController;
+    }
 
     public UserAuthentication create(UserAuthentication data){
         String encryptedPassword = passwordController.encryptPassword(data.getPassword());
@@ -25,11 +27,19 @@ public class AuthenticationController {
     }
 
     public UserAuthentication findByEmail(String email){
-        return repository.findById(email).get();
+        Optional<UserAuthentication> auth = repository.findByEmail(email);
+        if ( auth.isPresent() ){
+            return auth.get();
+        }
+        throw new UserNotFoundException("The user with email [" + email + "] was not found");
     }
 
     public UserAuthentication findByUserId(String userId){
-        return repository.findByUserId(userId).get(0);
+        Optional<UserAuthentication> auth = repository.findByUserId(userId);
+        if ( auth.isPresent() ){
+            return auth.get();
+        }
+        throw new UserNotFoundException("The user with userId [" + userId + "] was not found");
     }
 
     public UserAuthentication update(UserAuthentication update){
