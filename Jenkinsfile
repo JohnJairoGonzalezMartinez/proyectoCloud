@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                dir('src/eureka') {
+                sh 'find .'
+                dir('src/eurekaserver') {
+                    sh 'ls'
                     sh './mvnw clean install'
                 }
                 dir('src/Authentication') {
