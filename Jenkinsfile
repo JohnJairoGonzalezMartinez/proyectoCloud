@@ -8,7 +8,7 @@ pipeline {
                 sh 'whoami'
                 sh 'find .'
                 dir('src/eurekaserver') {
-                    sh './mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Authentication') {
                     sh './mvnw clean install'

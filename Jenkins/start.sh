@@ -5,4 +5,5 @@ if [ ! -f /var/jenkins_home/.ssh/id_rsa ]; then
 fi
 cp -f ssh-config /var/jenkins_home/.ssh/config
 
+chmod +x mvnw
 /usr/local/bin/jenkins.sh
