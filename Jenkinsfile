@@ -10,25 +10,25 @@ pipeline {
                     sh 'mvn clean compile'
                 }
                 dir('src/Authentication') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/Feedback') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/Marketplace') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/Services') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/Shopping') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/ShoppingCart') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/Users') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
             }
         }
