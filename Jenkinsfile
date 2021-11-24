@@ -7,13 +7,9 @@ pipeline {
                 sh 'pwd'
                 sh 'whoami'
                 sh 'find .'
-                /*
                 dir('src/eurekaserver') {
-                    sh 'chmod +r pom.xml'
-                    sh 'chmod +r ./mvnw'
-                    sh './mvnw clean install'
+                    sh 'chmod +x mvnw && ./mvnw clean install'
                 }
-                */
                 dir('src/Authentication') {
                     sh './mvnw clean install'
                 }
