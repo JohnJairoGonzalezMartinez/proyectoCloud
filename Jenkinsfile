@@ -3,11 +3,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                
                 sh 'whoami'
                 sh 'find .'
                 dir('src/eurekaserver') {
-                    sh 'chmod -R 777'
                     sh './mvnw clean install'
                 }
                 dir('src/Authentication') {
