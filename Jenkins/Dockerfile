@@ -11,5 +11,5 @@ RUN jenkins-plugin-cli -f plugins.txt
 ADD ssh-config .
 USER root
 ADD start.sh .
-USER jenkins
+#USER jenkins
 ENTRYPOINT [ "/start.sh" ]
