@@ -8,7 +8,7 @@ pipeline {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Authentication') {
                     sh 'chmod +x mvnw && ./mvnw clean install'
