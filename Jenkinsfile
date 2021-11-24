@@ -7,28 +7,28 @@ pipeline {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                 }
                 dir('src/Authentication') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Feedback') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Marketplace') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Services') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Shopping') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/ShoppingCart') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
                 dir('src/Users') {
-                    sh 'chmod +x mvnw && ./mvnw clean install'
+                    sh 'mvn clean install'
                 }
             }
         }
