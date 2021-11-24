@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'chown -R '
+                sh 'whoami'
                 sh 'find .'
                 dir('src/eurekaserver') {
                     sh './mvnw clean install'
