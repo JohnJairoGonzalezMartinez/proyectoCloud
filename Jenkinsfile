@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh 'pwd'
                 sh 'whoami'
                 sh 'find .'
                 dir('src/eurekaserver') {
