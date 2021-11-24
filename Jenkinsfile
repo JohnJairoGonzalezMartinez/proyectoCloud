@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh 'chown -R username:jenkins /var/jenkins_home/workspace/'
                 sh 'pwd'
                 sh 'whoami'
                 sh 'find .'
