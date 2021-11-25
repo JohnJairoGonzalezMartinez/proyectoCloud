@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+            docker {image 'mongodb'}
+        }
     tools { 
         maven 'maven'
         dockerTool 'docker'
@@ -10,9 +12,6 @@ pipeline {
         registryUrl = 'proyectocloud.azurecr.io'
     }
     stages {
-        agent {
-            docker {image 'mongodb'}
-        }
         stage('build') {
             steps {
                 dir('src/MongoDB'){
