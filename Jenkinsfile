@@ -2,13 +2,14 @@ pipeline {
     tools{
         maven 'maven'
     }
-    agent { dockerfile true }
     stages {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
                     sh 'ls'
                     sh 'mvn clean compile'
+                    sh 'docker build -t eurekaserverimage .'
+                    sh 'docker run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
                 }
 
                 /*
