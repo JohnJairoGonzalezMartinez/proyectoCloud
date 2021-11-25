@@ -1,19 +1,8 @@
 services:
     jenkins:
-        build: ./jenkins
-        image: jenkins
+        build: ./Jenkins
+        image: proyectocloud.azurecr.io/devops/jenkins
         container_name: jenkins
         restart: always
-        volumes:
-            - jenkins-data:/var/jenkins_home
         ports:
             - 18000:8080
-        networks:
-            - marketplace-net
-
-networks:
-    marketplace-net:
-        driver: bridge
-
-volumes:
-    jenkins-data:

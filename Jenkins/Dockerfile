@@ -6,10 +6,12 @@ ENV JENKINS_PASS=admin
 ENV JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 ###
 
+VOLUME [ "/var/jenkins_home" ]
+
 ADD plugins.txt .
 RUN jenkins-plugin-cli -f plugins.txt
 ADD ssh-config .
 USER root
 ADD start.sh .
-#USER jenkins
+USER jenkins
 ENTRYPOINT [ "/start.sh" ]

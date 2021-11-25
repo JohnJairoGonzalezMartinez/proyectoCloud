@@ -1,54 +1,29 @@
 services:
     dbserver:
-        image: mongo
+        image: proyectocloud.azurecr.io/marketplace/mongo
         container_name: dbserver
         ports:
             - 27000:27017
         networks:
-            - marketplace-net
-        volumes:
-            - mongodb-data:/data/db
+            - marketplace
     eureka:
+        image: proyectocloud.azurecr.io/marketplace/erueka
         build: ./eurekaserver
         container_name: eureka
         ports:
             - 18761:8761
         networks:
-            - marketplace-net
-    marketplace:
-        build: ./Marketplace
-        container_name: marketplace
-        ports:
-            - 11000:11000
-        networks:
-            - marketplace-net
+            - marketplace
+
     authentication:
+        image: proyectocloud.azurecr.io/marketplace/authentication
         build: ./Authentication
         networks:
-            - marketplace-net
-    feedback:
-        build: ./Feedback
-        networks:
-            - marketplace-net
-    mp-services:
-        build: ./Services
-        networks:
-            - marketplace-net
-    shopping:
-        build: ./Shopping
-        networks:
-            - marketplace-net
-    shoppingcart:
-        build: ./ShoppingCart
-        networks:
-            - marketplace-net
-    users:
-        build: ./Users
-        networks:
-            - marketplace-net
+            - marketplace
+        ports:
+            - "11100:11100"
 networks:
-    marketplace-net:
+    marketplace:
         driver: bridge
-
 volumes:
     mongodb-data:

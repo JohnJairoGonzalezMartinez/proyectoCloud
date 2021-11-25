@@ -3,12 +3,22 @@ pipeline {
     tools { 
         maven 'maven'
     }
+    environment {
+        registryName = "proyectocloud"
+        registryCredential = 'e8e377ca-7917-43b8-aa7a-5e92fe562d1b'
+        registryUrl = 'proyectocloud.azurecr.io'
+    }
     stages {
         stage('build') {
             steps {
-                dir('src/eurekaserver') {
+                
+                dir('src/eurekaserver'){
+                    script {
+                        dockerImage = docker.build registryName
+                    }
                     sh 'mvn clean compile'
                 }
+                /*
                 dir('src/Authentication') {
                     sh 'mvn clean compile'
                 }
@@ -30,15 +40,33 @@ pipeline {
                 dir('src/Users') {
                     sh 'mvn clean compile'
                 }
+                */
             }
         }
-        stage('deploy') {
-            steps {
-                dir('src'){
-                    sh 'docker-compose up --build'
+        stage('Upload Image to ACR') {
+            steps{   
+                script {
+                    docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+                    dockerImage.push()
+                    }
                 }
-                
             }
         }
+
+        stage('stop previous containers') {
+            steps {
+                sh 'docker ps -f name=mypythonContainer -q | xargs --no-run-if-empty docker container stop'
+                sh 'docker container ls -a -fname=mypythonContainer -q | xargs -r docker container rm'
+            }
+        }
+      
+        stage('Docker Run') {
+            steps{
+                script {
+                    sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer ${registryUrl}/${registryName}'
+                }
+            }
+        }
+
     }
 }
