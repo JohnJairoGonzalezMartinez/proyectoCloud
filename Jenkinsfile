@@ -37,10 +37,10 @@ pipeline {
             }
         }
         stage('build'){
-            dir('src'){
-                agent { dockerfile true }
-            }
             steps{
+                dir('src'){
+                    agent { dockerfile true }
+                }
                 sh 'ls'
             }
             
