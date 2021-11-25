@@ -1,8 +1,8 @@
 pipeline {
-    agent any
     tools{
         maven 'maven'
     }
+    agent { dockerfile true }
     stages {
         stage('build') {
             steps {
@@ -35,17 +35,6 @@ pipeline {
                 }
                 */
             }
-        }
-        stage('deploy'){
-            steps{
-                dir('src'){
-                    agent { dockerfile true }
-                }
-                sh 'ls'
-            }
-            
-        }
-
-        
+        }    
     }
 }
