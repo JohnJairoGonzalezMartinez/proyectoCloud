@@ -9,8 +9,6 @@ pipeline {
                 dir('src/eurekaserver') {
                     sh 'ls'
                     sh 'mvn clean compile'
-                    sh 'docker build -t eureka-iamge .'
-                    sh 'docker run -it --rm eureka --network=marketplace-net -p 18761:8761 eureka-image'
                 }
 
                 /*
@@ -38,10 +36,6 @@ pipeline {
                 */
             }
         }
-        stage('deploy') {
-            steps {
-                sh 'docker-compose up --build'
-            }
-        }
+        agent { dockerfile true }
     }
 }
