@@ -36,6 +36,13 @@ pipeline {
                 */
             }
         }
-        agent { dockerfile true }
+        stage('build'){
+            dir('src'){
+                agent { dockerfile true }
+            }
+            
+        }
+
+        
     }
 }
