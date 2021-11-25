@@ -3,9 +3,14 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                dir('eureka') {
-                    sh './mvnw clean install'
+                dir('src/eurekaserver') {
+                    sh 'ls'
+                    sh 'mvn clean compile'
+                    sh 'docker build -t eureka-iamge .'
+                    sh 'docker run -it --rm eureka --network=marketplace-net -p 18761:8761 eureka-image'
                 }
+
+                /*
                 dir('Authentication') {
                     sh './mvnw clean install'
                 }
@@ -27,6 +32,7 @@ pipeline {
                 dir('Users') {
                     sh './mvnw clean install'
                 }
+                */
             }
         }
         stage('deploy') {

@@ -1,0 +1,28 @@
+    marketplace:
+        build: ./Marketplace
+        container_name: marketplace
+        ports:
+            - 11000:11000
+        networks:
+            - marketplace-net
+    
+    feedback:
+        build: ./Feedback
+        networks:
+            - marketplace-net
+    mp-services:
+        build: ./Services
+        networks:
+            - marketplace-net
+    shopping:
+        build: ./Shopping
+        networks:
+            - marketplace-net
+    shoppingcart:
+        build: ./ShoppingCart
+        networks:
+            - marketplace-net
+    users:
+        build: ./Users
+        networks:
+            - marketplace-net
