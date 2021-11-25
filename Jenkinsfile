@@ -10,8 +10,8 @@ pipeline {
                     sh 'find .'
                     sh 'mvn clean package'
                     sh 'docker -v /var/run/docker.sock:/var/run/docker.sock image ls'
-                    sh 'docker build -t eurekaserverimage .'
-                    sh 'docker run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
+                    sh 'docker -v /var/run/docker.sock:/var/run/docker.sock build -t eurekaserverimage .'
+                    sh 'docker -v /var/run/docker.sock:/var/run/docker.sock run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
                 }
 
                 /*
