@@ -10,6 +10,7 @@ services:
             - 18000:8080
         networks:
             - marketplace-net
+        
 
 networks:
     marketplace-net:

@@ -7,8 +7,9 @@ pipeline {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
-                    sh 'ls'
+                    sh 'find .'
                     sh 'mvn clean compile'
+                    sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock'
                     sh 'docker build -t eurekaserverimage .'
                     sh 'docker run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
                 }
