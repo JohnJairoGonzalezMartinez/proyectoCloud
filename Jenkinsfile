@@ -12,12 +12,18 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                
-                dir('src/eurekaserver'){
+                dir('src/MongoDB'){
                     script {
                         dockerImage = docker.build registryName
                     }
+                }
+
+                dir('src/eurekaserver'){
                     sh 'mvn clean compile'
+                    script {
+                        dockerImage = docker.build registryName
+                    }
+                    
                 }
                 /*
                 dir('src/Authentication') {
