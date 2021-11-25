@@ -1,10 +1,7 @@
 pipeline {
-    agent {
-            docker {image 'mongodb'}
-        }
+    agent any
     tools { 
         maven 'maven'
-        dockerTool 'docker'
     }
     environment {
         registryName = "proyectocloud"
