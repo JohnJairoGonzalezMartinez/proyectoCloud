@@ -40,6 +40,9 @@ pipeline {
             dir('src'){
                 agent { dockerfile true }
             }
+            steps{
+                sh 'ls'
+            }
             
         }
 
