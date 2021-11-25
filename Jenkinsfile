@@ -9,7 +9,7 @@ pipeline {
                 dir('src/eurekaserver') {
                     sh 'find .'
                     sh 'mvn clean compile'
-                    sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock'
+                    sh 'docker image -v /var/run/docker.sock:/var/run/docker.sock ls'
                     sh 'docker build -t eurekaserverimage .'
                     sh 'docker run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
                 }
