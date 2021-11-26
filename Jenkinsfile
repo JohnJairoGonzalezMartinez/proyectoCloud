@@ -11,7 +11,7 @@ pipeline {
                     bat 'mvn --version'
                     bat 'mvn clean package'
                     bat 'docker build -t eurekaserverimage .'
-                    bat 'winpty docker.exe run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
+                    bat 'docker run --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
                 }
 
                 /*
