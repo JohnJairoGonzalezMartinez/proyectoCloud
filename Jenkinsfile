@@ -5,6 +5,8 @@ pipeline {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
+                    bat 'dir'
+                    bat 'mvn --version'
                     bat 'mvn clean package'
                     bat 'docker build -t eurekaserverimage .'
                     bat 'docker run -it --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
