@@ -7,37 +7,38 @@ pipeline {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
-                    bat 'dir'
-                    bat 'mvn --version'
                     bat 'mvn clean package'
-                    bat 'docker build -t eurekaserverimage .'
-                    bat 'docker run --rm --name eurekaserver --network=marketplace-net -p 18761:8761 eurekaserverimage'
                 }
-
-                /*
-                dir('Authentication') {
-                    sh './mvnw clean install'
+                dir('src/Authentication') {
+                    bat 'mvn clean package'
                 }
-                dir('Feedback') {
-                    sh './mvnw clean install'
+                dir('src/Feedback') {
+                    bat 'mvn clean package'
                 }
-                dir('Marketplace') {
-                    sh './mvnw clean install'
+                dir('src/Marketplace') {
+                    bat 'mvn clean package'
                 }
-                dir('Services') {
-                    sh './mvnw clean install'
+                dir('src/Services') {
+                    bat 'mvn clean package'
                 }
-                dir('Shopping') {
-                    sh './mvnw clean install'
+                dir('src/Shopping') {
+                    bat 'mvn clean package'
                 }
-                dir('ShoppingCart') {
-                    sh './mvnw clean install'
+                dir('src/ShoppingCart') {
+                    bat 'mvn clean package'
                 }
-                dir('Users') {
-                    sh './mvnw clean install'
+                dir('src/Users') {
+                    bat 'mvn clean package'
                 }
-                */
             }
-        }    
+        }
+        stage('deploy'){
+            steps{
+                dir('src'){
+                    bat 'docker-compose down'
+                    bat 'docker-compose up --build'
+                }
+            }
+        }
     }
 }
