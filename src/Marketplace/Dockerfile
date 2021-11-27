@@ -5,4 +5,4 @@ ADD start.sh .
 
 EXPOSE 11000/tcp
 
-ENTRYPOINT ["sh","/start.sh"]
+ENTRYPOINT ["/start.sh"]
