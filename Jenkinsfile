@@ -7,8 +7,6 @@ pipeline {
         stage('build') {
             steps {
                 dir('src/eurekaserver') {
-                    when { changeset "/*"}
-                    bat 'echo executed'
                     bat 'mvn clean package -DskipTests'
                 }
                 dir('src/Authentication') {
