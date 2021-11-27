@@ -5,4 +5,5 @@ ADD start.sh .
 
 RUN ls
 
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["ls"]
+CMD [ "/start.sh" ]
