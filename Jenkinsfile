@@ -36,7 +36,7 @@ pipeline {
             steps{
                 dir('src'){
                     bat 'docker-compose down'
-                    bat 'docker-compose up --build'
+                    bat 'docker-compose up --build -d'
                 }
             }
         }
