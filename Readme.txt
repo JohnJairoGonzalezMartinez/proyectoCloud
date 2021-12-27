@@ -19,4 +19,4 @@ La documentación se encuentra en el directorio ./documentacion
 Se presenta unicamente las funcionalidades de:
  - servidor de descubrimiento eureka
  - servicio de autenticación (completo)
- - servicio de Carrito de compras (completo)
+ - servicio de Carrito de compras (completo).
